@@ -5,7 +5,7 @@ columns = ['№', 'Производитель', 'Марка', 'Цвет', 'Ко�
 
 #Функции ↓ ↓ ↓ ↓ ↓ ↓
 def showdata(): #txt в таблицу
-    d=open('data_source.txt', 'r+',encoding='utf-16').readlines()
+    d=open('C:/Users/Глеб/Desktop/новая/data_source.txt', 'r+',encoding='utf-16').readlines()
     r=[]
     for i in d:
         s=[x for x in i.split("/")]
@@ -18,6 +18,7 @@ def find_num(): #нахождение последнего номера
     for i in d:
         s = [x for x in i.split("/")]
         r.append(s)
+        print(r)
     for i in range(len(r)):
         num1=r[i][0]
         if int(num1)>number:
@@ -30,8 +31,8 @@ def delete_car_func(x): # Удалить машину функция
     print("")
     number_for_delete = x
     os.system('cls')
-    d = open('data_source.txt', 'r+', encoding='utf-16').readlines()
-    file = open('data_source.txt', 'r+', encoding='utf-16')
+    d = open('C:/Users/Глеб/Desktop/новая/data_source.txt', 'r+', encoding='utf-16').readlines()
+    file = open('C:/Users/Глеб/Desktop/новая/data_source.txt', 'r+', encoding='utf-16')
     rdata = []
     for i in d:
         s = [x for x in i.split("/")]
@@ -52,7 +53,7 @@ def change_car_func(x): #Редачить машину функция
     print("")
     number_for_change = x
     os.system('cls')
-    d = open('data_source.txt', 'r+',encoding='utf-16').readlines()
+    d = open('C:/Users/Глеб/Desktop/новая/data_source.txt', 'r+',encoding='utf-16').readlines()
     rdata=[]
     for i in d:
         r = []
@@ -90,7 +91,7 @@ def change_car_func(x): #Редачить машину функция
         rdata[number_for_change - 1][vvod_data-1] = r2[0][vvod_data-1] = input(f'{r2[0][vvod_data-1]} => ')
         os.system('cls')
         print(tabulate.tabulate(r2, headers=columns, tablefmt='pipe'))
-        file = open('data_source.txt', 'r+',encoding='utf-16')
+        file = open('C:/Users/Глеб/Desktop/новая/data_source.txt', 'r+',encoding='utf-16')
         s = ["/".join(x) for x in rdata]
         for i in s: #редачим файл
             file.write(str(i))
@@ -112,8 +113,8 @@ def change_car_func(x): #Редачить машину функция
 def add_car_error(): #Page 2. Добавить машину
     os.system('cls')
     data = showdata()
-    d2 = open('data_source.txt', 'r+',encoding='utf-16').readlines()
-    file = open('data_source.txt', 'r+',encoding='utf-16')
+    d2 = open('C:/Users/Глеб/Desktop/новая/data_source.txt', 'r+',encoding='utf-16').readlines()
+    file = open('C:/Users/Глеб/Desktop/новая/data_source.txt', 'r+',encoding='utf-16')
     print("Введен запрещенный символ => / ")
     print("_______________________")
     vvod_fabric = input("Введите производителя авто:")
@@ -129,7 +130,7 @@ def add_car_error(): #Page 2. Добавить машину
                     car_string = f'{num}/{vvod_fabric}/{vvod_model}/{vvod_color}/{vvod_transmission}/{vvod_engine}' #новая строка
                     for i in d2:
                         file.write(str(i))
-                    file.write(f"{car_string}\n")
+                    file.write(f"\n{car_string}")
                     file.close()
                     page_data()
                 else:
@@ -205,8 +206,8 @@ def page_data():  # Page 1.Список машин
 def add_car(): #Page 2. Добавить машину
     os.system('cls')
     data = showdata()
-    d2 = open('data_source.txt', 'r+',encoding='utf-16').readlines()
-    file = open('data_source.txt', 'r+',encoding='utf-16')
+    d2 = open('C:/Users/Глеб/Desktop/новая/data_source.txt', 'r+',encoding='utf-16').readlines()
+    file = open('C:/Users/Глеб/Desktop/новая/data_source.txt', 'r+',encoding='utf-16')
     vvod_fabric = input("Введите производителя авто:")
     if vvod_fabric.count("/") == 0:
         vvod_model = input("Введите марку авто:")
@@ -235,7 +236,7 @@ def delete_car(): #Page 3. Удалить машину
     os.system('cls')
     data = showdata()
     print(tabulate.tabulate(data, headers=columns, tablefmt='pipe'))  # таблица
-    d = open('data_source.txt', 'r+', encoding='utf-16').readlines()
+    d = open('C:/Users/Глеб/Desktop/новая/data_source.txt', 'r+', encoding='utf-16').readlines()
     lines = len(d)
     print("")
     print("_______________________")
@@ -247,7 +248,7 @@ def delete_car(): #Page 3. Удалить машину
         except: print("")
     if number_for_delete<=lines:
         os.system('cls')
-        file = open('data_source.txt', 'r+', encoding='utf-16')
+        file = open('C:/Users/Глеб/Desktop/новая/data_source.txt', 'r+', encoding='utf-16')
         rdata = []
         for i in d:
             s = [x for x in i.split("/")]
@@ -283,7 +284,7 @@ def change_car(): #Page 4. Редачить машину
     data=showdata()
     print(tabulate.tabulate(data, headers=columns, tablefmt='pipe')) #таблица
     print("")
-    d = open('data_source.txt', 'r+', encoding='utf-16').readlines()
+    d = open('C:/Users/Глеб/Desktop/новая/data_source.txt', 'r+', encoding='utf-16').readlines()
     lines=len(d)
     print("_______________________")
     k = 0
@@ -381,7 +382,7 @@ def change_car(): #Page 4. Редачить машину
 
 def find_car():  # Page 5. Найти машину
     os.system('cls')
-    d = open('data_source.txt', 'r+', encoding='utf-16').readlines()
+    d = open('C:/Users/Глеб/Desktop/новая/data_source.txt', 'r+', encoding='utf-16').readlines()
 
     print("Выберите критерий поиска:")
     print("1. По номеру")
