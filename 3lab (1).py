@@ -11,6 +11,18 @@ def showdata(): #txt в таблицу
         s=[x for x in i.split("/")]
         r.append(s)
     return r
+def find_num(): #нахождение последнего номера
+    d = open('data_source.txt',encoding='utf-16').readlines()
+    r=[]
+    number=0
+    for i in d:
+        s = [x for x in i.split("/")]
+        r.append(s)
+    for i in range(len(r)):
+        num1=r[i][0]
+        if int(num1)>number:
+            number=int(num1)
+    return number
 def delete_car_func(x): # Удалить машину функция
     os.system('cls')
     data = showdata()
