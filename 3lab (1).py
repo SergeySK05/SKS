@@ -18,7 +18,6 @@ def find_num(): #нахождение последнего номера
     for i in d:
         s = [x for x in i.split("/")]
         r.append(s)
-        print(r)
     for i in range(len(r)):
         num1=r[i][0]
         if int(num1)>number:
@@ -221,7 +220,7 @@ def add_car(): #Page 2. Добавить машину
                     car_string = f'{num}/{vvod_fabric}/{vvod_model}/{vvod_color}/{vvod_transmission}/{vvod_engine}'  # новая строка
                     for i in d2:
                         file.write(str(i))
-                    file.write(f"\n{car_string}")
+                    file.write(f"{car_string}\n")
                     file.close()
                     page_data()
                 else:
