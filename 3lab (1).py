@@ -1,7 +1,7 @@
 import os
 import tabulate  #библиотека для таблиц
 
-columns = ['№', 'Производитель', 'Марка', 'Цвет', 'Коробка передач', 'Привод'] #названия столбцов
+columns = ['№', 'Производитель', 'Марка', 'Цвет', 'Коробка передач', 'Привод', 'Гос. номер'] #названия столбцов
 
 #Функции ↓ ↓ ↓ ↓ ↓ ↓
 def showdata(): #txt в таблицу
@@ -68,10 +68,11 @@ def change_car_func(x): #Редачить машину функция
     print("4.Заменить цвет")
     print("5.Заменить коробку передач")
     print("6.Заменить привод")
+    print("7.Заменить гос. номер")
     k = 0
     while k == 0:  # проверка на буквы
         try:
-            vvod_data = int(input("Для выбора действия введите его номер(1-6):"))
+            vvod_data = int(input("Для выбора действия введите его номер(1-7):"))
             k+=1
         except: print("")
     if vvod_data==1:
@@ -125,13 +126,17 @@ def add_car_error(): #Page 2. Добавить машину
                 vvod_transmission = input("Введите коробку передач:")
                 if vvod_transmission.count("/")==0:
                     vvod_engine = input("Введите привод авто:")
-                    num=find_num()+1
-                    car_string = f'{num}/{vvod_fabric}/{vvod_model}/{vvod_color}/{vvod_transmission}/{vvod_engine}' #новая строка
-                    for i in d2:
-                        file.write(str(i))
-                    file.write(f"\n{car_string}")
-                    file.close()
-                    page_data()
+                    if vvod_engine.count("/")==0:
+                        vvod_gos = input("Введите гос. номер авто:")
+                        num=find_num()+1
+                        car_string = f'{num}/{vvod_fabric}/{vvod_model}/{vvod_color}/{vvod_transmission}/{vvod_engine}/{vvod_gos}' #новая строка
+                        for i in d2:
+                            file.write(str(i))
+                        file.write(f"\n{car_string}")
+                        file.close()
+                        page_data()
+                    else:
+                        add_car_error()
                 else:
                     add_car_error()
             else:
@@ -216,13 +221,17 @@ def add_car(): #Page 2. Добавить машину
                 vvod_transmission = input("Введите коробку передач:")
                 if vvod_transmission.count("/") == 0:
                     vvod_engine = input("Введите привод авто:")
-                    num = find_num() + 1
-                    car_string = f'{num}/{vvod_fabric}/{vvod_model}/{vvod_color}/{vvod_transmission}/{vvod_engine}'  # новая строка
-                    for i in d2:
-                        file.write(str(i))
-                    file.write(f"\n{car_string}")
-                    file.close()
-                    page_data()
+                    if vvod_engine.count("/") == 0:
+                        vvod_gos = input("Введите гос. номер авто:")
+                        num = find_num() + 1
+                        car_string = f'{num}/{vvod_fabric}/{vvod_model}/{vvod_color}/{vvod_transmission}/{vvod_engine}/{vvod_gos}'  # новая строка
+                        for i in d2:
+                            file.write(str(i))
+                        file.write(f"\n{car_string}")
+                        file.close()
+                        page_data()
+                    else:
+                        add_car_error()
                 else:
                     add_car_error()
             else:
@@ -310,10 +319,11 @@ def change_car(): #Page 4. Редачить машину
         print("4.Изменить цвет")
         print("5.Изменить коробку передач")
         print("6.Изменить привод")
+        print("7.Изменить гос. номер")
         k = 0
         while k == 0:  # проверка на буквы
             try:
-                vvod_data = int(input("Для выбора действия введите его номер(1-6):"))
+                vvod_data = int(input("Для выбора действия введите его номер(1-7):"))
                 k+=1
             except: print("")
         if vvod_data==1:
@@ -388,13 +398,14 @@ def find_car():  # Page 5. Найти машину
     print("2. По цвету")
     print("3. По коробке передач")
     print("4. По приводу")
+    print("5. По гос. номеру")
 
     search_criteria = None
-    while search_criteria not in {1, 2, 3, 4}:
+    while search_criteria not in {1, 2, 3, 4, 5}:
         try:
-            search_criteria = int(input("Введите номер критерия (1-4): "))
-            if search_criteria not in {1, 2, 3, 4}:
-                print("Пожалуйста, выберите номер от 1 до 4.")
+            search_criteria = int(input("Введите номер критерия (1-5): "))
+            if search_criteria not in {1, 2, 3, 4, 5}:
+                print("Пожалуйста, выберите номер от 1 до 5.")
         except ValueError:
             print("Некорректный ввод. Попробуйте снова.")
 
@@ -406,11 +417,12 @@ def find_car():  # Page 5. Найти машину
     results = []
     for i in d:
         s = [x for x in i.split("/")]
-        print(f"Проверяем: Привод: {s[5]}, Искомое значение: {search_value}")  # Отладочный вывод
+        print(f"Проверяем: Привод: {s[6]}, Искомое значение: {search_value}")  # Отладочный вывод
         if (search_criteria == 1 and search_value == s[0]) or \
                 (search_criteria == 2 and search_value.lower() == s[3].lower()) or \
                 (search_criteria == 3 and search_value.lower() == s[4].lower()) or \
-                (search_criteria == 4 and search_value.lower() == s[5].strip().lower()):
+                (search_criteria == 4 and search_value.lower() == s[5].lower()) or \
+                (search_criteria == 5 and search_value.lower() == s[6].strip().lower()):
             results.append(s)
 
     if results:
